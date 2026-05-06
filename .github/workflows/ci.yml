@@ -17,4 +17,4 @@ jobs:
           distribution: 'temurin'
 
       - name: Build Bai10 only
-        run: mvn clean validate -pl Bai10
+        run: mvn clean package -pl Bai10
