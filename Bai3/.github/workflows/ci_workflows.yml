@@ -1,0 +1,33 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout mã nguồn
+        uses: actions/checkout@v4
+
+      - name: Thiết lập JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build với Maven (Test & Package)
+        # Lệnh này sẽ chạy toàn bộ vòng đời build đến pha package
+        run: mvn -B package --file pom.xml
+
+      - name: Lưu trữ tệp .jar (Artifact)
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifact
+          path: target/*.jar

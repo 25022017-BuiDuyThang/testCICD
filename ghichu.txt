@@ -1,0 +1,41 @@
+Bài 1: 
+File pom.xml cũ của bạn đặt <source> và <target> là 1.8
+Hibernate 6.2.0.Final yêu cầu môi trường Java tối thiểu 11. --> nâng phiên bản java lên <maven.compiler.source> (17 hoặc 25 ) </maven.compiler.source>
+
+Vấn đề 1:
+trong pom cũ có dependency của JUnit 4. Nếu không xoá đi, dự án sẽ có 2 engine test chạy song song ( mà yêu cầu nói "Junit Jupiter làm công cụ kiểm thử duy nhất) 
+
+???Vấn đề 2: Các thư viện như Hibernate thường kéo theo các thư viện logging trung gian (như JBoss Logging). Nếu trong dự án cũ có các thư viện như log4j hay slf4j-log4j12, Logback sẽ không thể khởi tạo vì xảy ra hiện tượng "Multiple SLF4J bindings".
+
+Giải pháp: * Sử dụng logback-classic 1.4.11 (nó đã bao gồm slf4j-api).
+
+Maven sẽ ưu tiên thư viện khai báo trực tiếp. Chúng ta cần kiểm tra lệnh mvn dependency:tree để đảm bảo không có adapter logging cũ nào lọt vào classpath.
+
+Vấn đề 3: Vấn đề: mysql-connector-java:5.1.30 quá cũ, không hỗ trợ các kiểu dữ liệu và cơ chế tối ưu của Hibernate 6 (vốn đã chuyển sang namespace jakarta.persistence).
+
+Nâng cấp lên mysql-connector-j:8.0.33. Đây là driver mới nhất hỗ trợ cho Java 17. 
+
+
+Bài 2:
+1. Phân biệt giữa "Error" và "Warning"
+Trong cấu hình Checkstyle của dự án này, các quy tắc đang được thiết lập ở mức độ Warning (Cảnh báo) chứ không phải Error (Lỗi).
+
+Violations: Thường hệ thống chỉ đếm và chặn "Build Success" nếu các lỗi đó được định nghĩa là Error.
+
+Warnings: Các dòng [WARN] bạn thấy chỉ là lời nhắc nhở. Vì chúng không phải lỗi nghiêm trọng (theo cấu hình hiện tại), nên hệ thống vẫn báo "0 violations" (0 lỗi vi phạm nặng) và cho phép BUILD SUCCESS.
+
+1. Cơ chế của violationSeverityKhi bạn đặt <violationSeverity>warning</violationSeverity>, bạn đang ra lệnh cho Maven rằng: "Hãy coi tất cả các lỗi từ mức độ Warning trở lên là Vi phạm (Violation)".Trước đó, mặc dù bạn thấy một đống dòng [WARN], nhưng Maven chỉ coi đó là lời nhắc nhở nhẹ nhàng nên vẫn báo 0 violations và cho BUILD SUCCESS. Khi thêm dòng này, toàn bộ các lỗi khoảng trắng và thụt đầu dòng (indentation) trong file Transaction.java của bạn đã bị Maven "đếm" là Violation
+
+
+Tại sao lại dẫn đến "Failure"?Trong plugin Checkstyle, có một thuộc tính mặc định (hoặc bạn đã bật) là <failOnViolation>true</failOnViolation>.
+Trước khi thêm dòng đó: Số lượng Violation = 0 $\rightarrow$ Thỏa mãn điều kiện $\rightarrow$ Success.
+Sau khi thêm dòng đó: Số lượng Violation > 0 (do đống lỗi [WARN] đã được tính) $\rightarrow$ Vi phạm điều kiện $\rightarrow$ Hệ thống chủ động ngắt quá trình Build để buộc bạn phải sửa code.
+
+Bài 3: 
+- tại sao chạy mvn test lại không chạy test trên Calculator.test: 
+Trong file CalculatorTest.java ở Bai3, bạn đã trộn lẫn các thư viện với nhau: bạn viết @Test bằng thư viện TestNG (import org.testng.annotations.Test) nhưng code xác nhận logic assertEquals lại dùng JUnit 5.
+File pom.xml của bạn mới chỉ khai báo dependency JUnit / TestNG mà chưa đính kèm cấu hình Maven Surefire Plugin (đây là công cụ bắt buộc phải có để Maven quét mã và chạy các test classes trên các hệ thống build mới).
+
+
+Bài 9: 
+- config logback.xml để ghi thông tin log vào file ( tên FILE )

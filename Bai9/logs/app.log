@@ -1,0 +1,3 @@
+2026-05-06 14:01:30 [main] INFO  org.test.Main - Dữ liệu: Data1 giá trị: 100
+2026-05-06 14:01:30 [main] INFO  org.test.Main - Dữ liệu: Data2 giá trị: -22
+2026-05-06 14:01:30 [main] ERROR org.test.Main - Xảy ra lỗi khi xử lý Data2: Giá trị không hợp lệ
