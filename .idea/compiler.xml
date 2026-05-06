@@ -8,8 +8,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Bai9" />
         <module name="Bai1" />
-        <module name="BaiTapCICD" />
         <module name="Bai3" />
+        <module name="Bai10" />
         <module name="Bai2" />
       </profile>
     </annotationProcessing>
