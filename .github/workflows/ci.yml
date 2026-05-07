@@ -1,40 +1,29 @@
-name: Automated Code Review
+name: Multi-OS Test Suite
 
-on:
-  pull_request:
-    branches: [ "main" ]
+on: [push, pull_request]
 
 jobs:
-  checkstyle:
-    name: Checkstyle & Test
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write # Quan trọng để bot có thể comment
+  test-on-matrix:
+    name: Test on ${{ matrix.os }}
+    # Chạy trên các OS được định nghĩa trong matrix
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        # Danh sách các hệ điều hành cần kiểm thử
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      # Chạy checkstyle và xuất kết quả ra file XML
-      - name: Run Checkstyle
-        run: mvn checkstyle:checkstyle
-
-      # Tích hợp Inline Feedback
-      - name: Checkstyle Report
-        uses: dbelyaev/action-checkstyle@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          checkstyle_config: google_checks.xml # Hoặc file config của bạn
-          level: error
-
-      - name: Build riêng module Bai7
+      - name: Build riêng module Bai4
         # -pl (project list): Chỉ định module cụ thể
         # -am (also make): Build cả các module phụ thuộc nếu có
-        run: mvn clean test -pl Bai7
+        run: mvn clean test -pl Bai4
