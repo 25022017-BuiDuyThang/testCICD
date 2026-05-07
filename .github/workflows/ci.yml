@@ -20,7 +20,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: 'maven'
-      - name: Build riêng module Bai6
+      - name: Build riêng module Bai4
         # -pl (project list): Chỉ định module cụ thể
         # -am (also make): Build cả các module phụ thuộc nếu có
-        run: mvn clean install -pl Bai6
+        run: mvn clean install -pl Bai4
