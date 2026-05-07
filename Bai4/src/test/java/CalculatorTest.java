@@ -1,5 +1,4 @@
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -9,15 +8,13 @@ import org.test.Calculator;
 
 public class CalculatorTest {
   @Test
-  void testHardcodedPath() {
-    // Cố tình dùng format của Windows: folder\file.txt
-    String path = "target" + "\\" + "test-file.txt";
-    File file = new File(path);
+  void testPathSeparator() {
+    String expectedPath = "target\\test-file.txt"; // Hardcoded kiểu Windows
+    File file = new File("target", "test-file.txt");
 
-    System.out.println("Checking path: " + path);
-
-    // Bài test này sẽ chạy đúng trên Windows
-    // Nhưng sẽ tạo ra kết quả sai lệch hoặc lỗi logic trên Linux/macOS
-    assertTrue(path.contains("\\"));
+    // So sánh đường dẫn thực tế của hệ thống với chuỗi hardcoded
+    // Trên Ubuntu, file.getPath() sẽ trả về "target/test-file.txt"
+    // => So sánh này chắc chắn sẽ FAIL trên Ubuntu/macOS
+    assertEquals(expectedPath, file.getPath(), "Đường dẫn không khớp với định dạng Windows!");
   }
 }
