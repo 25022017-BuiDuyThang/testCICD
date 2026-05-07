@@ -30,6 +30,7 @@ public final class Main {
    */
   public static int calculateSum(final int[] array) {
     int sum = 0;
+    int _sum0ss = 0;
     for (final int num : array) {
       sum += num;
     }

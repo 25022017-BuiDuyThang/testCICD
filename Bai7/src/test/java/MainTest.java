@@ -40,6 +40,6 @@ public class MainTest {
   @Test
   void testCalculateSum_NegativeNumbers() {
     int[] numbers = {-1, -2, 5};
-    assertEquals(2, Main.calculateSum(numbers), "-1 + -2 + 5 phải bằng 2");
-  }
+    assertEquals(3, Main.calculateSum(numbers), "-1 + -2 + 5 phải bằng 2");
+  } // giả sử test fail để test
 }
