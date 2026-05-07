@@ -19,7 +19,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      #          cache: 'maven'
+          cache: 'maven'
       - name: Build riêng module Bai6
         # -pl (project list): Chỉ định module cụ thể
         # -am (also make): Build cả các module phụ thuộc nếu có
