@@ -37,4 +37,4 @@ jobs:
       - name: Build riêng module Bai5
         # -pl (project list): Chỉ định module cụ thể
         # -am (also make): Build cả các module phụ thuộc nếu có
-        run: mvn clean validate -pl Bai5
+        run: mvn clean test -pl Bai5
