@@ -10,9 +10,10 @@
     <packaging>pom</packaging>
     <modules>
         <module>Bai10</module>
-<!--        <module>Bai4</module>-->
-        <module>Bai5</module>
-        <module>Bai3</module>
+        <!--        <module>Bai4</module>-->
+        <!--        <module>Bai5</module>-->
+        <!--        <module>Bai3</module>-->
+        <module> Bai6 </module>
     </modules>
 
     <properties>

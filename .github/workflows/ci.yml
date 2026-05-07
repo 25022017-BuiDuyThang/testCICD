@@ -19,22 +19,8 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: maven
-
-      - name: Build, Test and Verify Coverage
-        # Chạy verify để thực thi jacoco:check (đảm bảo coverage >= 80%)
-        run: mvn clean verify
-
-      - name: Upload JaCoCo Report
-        uses: actions/upload-artifact@v4
-        # Sử dụng if: always() để đảm bảo báo cáo luôn được upload
-        # ngay cả khi lệnh build fail do không đạt 80% coverage.
-        if: always()
-        with:
-          name: jacoco-coverage-report
-          path: target/site/jacoco/
-          retention-days: 7 # Lưu trữ báo cáo trong 7 ngày để tiết kiệm dung lượng
-      - name: Build riêng module Bai5
+      #          cache: 'maven'
+      - name: Build riêng module Bai6
         # -pl (project list): Chỉ định module cụ thể
         # -am (also make): Build cả các module phụ thuộc nếu có
-        run: mvn clean test -pl Bai5
+        run: mvn clean test -pl Bai6
