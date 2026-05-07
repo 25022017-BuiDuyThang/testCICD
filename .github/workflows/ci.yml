@@ -24,7 +24,7 @@ jobs:
       - name: Build riêng module Bai3
         # -pl (project list): Chỉ định module cụ thể
         # -am (also make): Build cả các module phụ thuộc nếu có
-        run: mvn -B package -pl Bai3 -am
+        run: mvn clean package -pl Bai3
 
       - name: Lưu trữ tệp .jar của Bai3
         if: success()
