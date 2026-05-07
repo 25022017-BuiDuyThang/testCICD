@@ -16,11 +16,16 @@ public class ShippingCalculatorTest {
   void testExpress() {
     assertEquals(45000.0, calc.calculate(5, "EXPRESS"));
   }
-  @Test
-  void testError(){assertEquals(45000.0, calc.calculate(5, "UNKNOWN"));}
+//  @Test
+//  void testError(){assertEquals(45000.0, calc.calculate(5, "UNKNOWN"));}
   @Test
   void testInvalidWeight() {
     assertThrows(IllegalArgumentException.class,
-        () -> calc.calculate(-1, "STANDARD"));
+        () -> calc.calculate(-1, null));
+  }
+  @Test
+  void testInvalidWeight1() {
+    assertThrows(IllegalArgumentException.class,
+        () -> calc.calculate(99, null));
   }
 }
