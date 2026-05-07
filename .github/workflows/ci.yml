@@ -23,4 +23,4 @@ jobs:
       - name: Build riêng module Bai6
         # -pl (project list): Chỉ định module cụ thể
         # -am (also make): Build cả các module phụ thuộc nếu có
-        run: mvn clean test -pl Bai6
+        run: mvn clean install -pl Bai6
