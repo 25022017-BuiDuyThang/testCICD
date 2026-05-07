@@ -16,5 +16,6 @@ public class CalculatorTest {
     // Trên Ubuntu, file.getPath() sẽ trả về "target/test-file.txt"
     // => So sánh này chắc chắn sẽ FAIL trên Ubuntu/macOS
     assertEquals(expectedPath, file.getPath(), "Đường dẫn không khớp với định dạng Windows!");
+    assertEquals(1, 2);
   }
 }
