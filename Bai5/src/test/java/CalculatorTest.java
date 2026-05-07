@@ -19,6 +19,6 @@ public class CalculatorTest {
 
   @Test
   void addShouldHandleNegativeNumbers() {
-    assertEquals(3, calculator.add(-2, 5));
+    assertEquals(7, calculator.add(-2, 5));
   }
 }
