@@ -1,17 +1,19 @@
-name: Java CI Pipeline
+name: Automated Code Review
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
 jobs:
-  build:
+  checkstyle:
+    name: Checkstyle & Test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write # Quan trọng để bot có thể comment
 
     steps:
-      - name: Checkout Source Code
+      - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Set up JDK 17
@@ -19,8 +21,20 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: 'maven'
-      - name: Build riêng module Bai4
+
+      # Chạy checkstyle và xuất kết quả ra file XML
+      - name: Run Checkstyle
+        run: mvn checkstyle:checkstyle
+
+      # Tích hợp Inline Feedback
+      - name: Checkstyle Report
+        uses: dbelyaev/action-checkstyle@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          checkstyle_config: google_checks.xml # Hoặc file config của bạn
+          level: error
+
+      - name: Build riêng module Bai7
         # -pl (project list): Chỉ định module cụ thể
         # -am (also make): Build cả các module phụ thuộc nếu có
-        run: mvn clean install -pl Bai4
+        run: mvn clean test -pl Bai7
