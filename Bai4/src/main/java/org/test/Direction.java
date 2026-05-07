@@ -8,6 +8,6 @@ public class Direction {
 
   public int add(int a, int b) {
     logger.info("Sum: {} + {}", a, b);
-    return a + b;
+    return a + b + b;
   }
 }
