@@ -17,4 +17,9 @@ public class CalculatorTest {
     Calculator calculator = new Calculator();
     assertEquals(10, calculator.add(5,5), "5 + 5 = 10");
   }
+  @Test
+  public void testDivide(){
+    Calculator calculator = new Calculator();
+    assertEquals(10, calculator.divide(10,0), "Khong the chia");
+  }
 }

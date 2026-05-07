@@ -10,4 +10,10 @@ public class Calculator {
     logger.info("Sum: {} + {}", a, b);
     return a + b;
   }
+  public int divide(int a, int b){
+    if(b == 0){
+      logger.error("Loi chia khong {} / {}", a,b);
+    }
+    return a;
+  }
 }
